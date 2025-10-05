@@ -1,16 +1,31 @@
-# React + Vite
+# 🍳 Recipe Finder App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive web application that allows users to search for recipes, view detailed instructions, and save their favorite dishes. Built with React, Vite, Tailwind CSS, and Zustand for state management, this app showcases clean architecture, API integration, and user-centric design.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Demo
 
-## React Compiler
+Coming soon...
 
-The React Compiler is not enabled on this template. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 📦 Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Frontend**: React (with Vite)
+- **Styling**: Tailwind CSS
+- **State Management**: Zustand
+- **Routing**: React Router
+- **API**: [TheMealDB](https://www.themealdb.com/api.php) or Spoonacular
+- **Deployment**: GitHub Pages / Vercel / Netlify (planned)
+
+---
+
+## 🎯 Features
+
+- 🔍 **Recipe Search**: Users can search for recipes by name or keyword.
+- 📄 **Recipe Details**: View ingredients, instructions, and images.
+- ❤️ **Favorites Page**: Save and manage favorite recipes locally.
+- ⚡ **Responsive Design**: Mobile-first layout using Tailwind CSS.
+- 🧠 **Global State**: Zustand handles recipes, favorites, and loading states.
+- 🔄 **Routing**: Seamless navigation between Home and Favorites pages.
