@@ -4,6 +4,17 @@ const useRecipeStore = create((set) => ({
   recipes: [],
   loading: false,
   error: null,
+  favorites:[],
+  toggleFavorite: (item) => 
+    set((state) => {
+      const isFavorite = state.favorites.some(fav => fav.id === item.id);
+
+      return {
+        favorites: isFavorite
+          ? state.favorites.filter(fav => fav.id !== item.id) // remove
+          : [...state.favorites, item] // add
+      };
+    }),
 
   fetchRecipes: async (query) => {
     set({ loading: true, error: null, recipes: [] });
