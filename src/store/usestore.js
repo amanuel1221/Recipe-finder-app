@@ -11,8 +11,8 @@ const useRecipeStore = create((set) => ({
 
       return {
         favorites: isFavorite
-          ? state.favorites.filter(fav => fav.id !== item.id) // remove
-          : [...state.favorites, item] // add
+          ? state.favorites.filter(fav => fav.id !== item.id) 
+          : [...state.favorites, item] 
       };
     }),
 
@@ -20,7 +20,7 @@ const useRecipeStore = create((set) => ({
     set({ loading: true, error: null, recipes: [] });
 
     try {
-      // ✅ Using Edamam demo API
+      
       const res = await fetch(
         `https://api.edamam.com/api/recipes/v2?type=public&q=${query}&app_id=demo&app_key=demo`
       );
