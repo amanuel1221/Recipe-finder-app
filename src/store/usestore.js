@@ -23,7 +23,7 @@ const useRecipeStore = create((set) => ({
         set({ error: "No meals found 😕", loading: false });
       }
     } catch (err) {
-      set({ error: "Failed to fetch meals ❌", loading: false });
+      set({ error: "Failed to fetch meals ", loading: false });
     }
   },
 }));
