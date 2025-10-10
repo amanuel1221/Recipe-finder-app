@@ -1,8 +1,8 @@
 import React from "react";
-import useRecipeStore from "../store/usestore"; // ✅ correct import
+import useRecipeStore from "../store/usestore"; 
 
 const MealDisplay = () => {
-  const { recipes, favorites, toggleFavorite } = useRecipeStore(); // ✅ pull all you need
+  const { recipes, favorites, toggleFavorite } = useRecipeStore(); 
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
@@ -13,7 +13,7 @@ const MealDisplay = () => {
       ) : (
         recipes.map((recipe, index) => {
           const rating = (Math.random() * 2 + 3).toFixed(1);
-          const isFavorite = favorites.some((fav) => fav.uri === recipe.uri); // ✅ unique key check
+          const isFavorite = favorites.some((fav) => fav.uri === recipe.uri);
 
           return (
             <div
