@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import useRecipeStore from '../store/usestore';
-import MealDisplay from "./display";
+import useRecipeStore from '../store/UseStore';
+import Display from "./Display";
 
 const Search = () => {
   const [query, setQuery] = useState("");
@@ -41,7 +41,7 @@ const Search = () => {
       {loading && <p className="text-center mt-4 text-blue-500">Fetching meals...</p>}
       {error && <p className="text-center mt-4 text-red-500 font-bold">{error}</p>}
 
-      <MealDisplay recipes={recipes} />
+      <Display recipes={recipes} />
     </div>
   );
 };
