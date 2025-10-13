@@ -1,6 +1,5 @@
 import React from "react";
-import useRecipeStore from "../store/UseStore"; // make sure file name matches!
-
+import useRecipeStore from "../store/UseStore";
 const Favorites = () => {
   const { favorites, toggleFavorite } = useRecipeStore();
 
