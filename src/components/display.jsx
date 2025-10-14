@@ -1,7 +1,7 @@
 import React from "react";
-import useRecipeStore from "../store/usestore"; 
+import useRecipeStore from "../store/UseStore"; 
 
-const MealDisplay = () => {
+const Display = () => {
   const { recipes, favorites, toggleFavorite } = useRecipeStore(); 
 
   return (
@@ -49,4 +49,4 @@ const MealDisplay = () => {
   );
 };
 
-export default MealDisplay;
+export default Display;
