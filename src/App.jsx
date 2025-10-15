@@ -5,8 +5,9 @@ import Home from "./components/Home";
 import Favorites from "./components/Favorites";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
-import { AuthProvider } from "./context/AuthContext";
+import Profile from "./components/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
   return (
@@ -23,6 +24,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Favorites />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
                 </ProtectedRoute>
               }
             />
