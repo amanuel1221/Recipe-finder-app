@@ -21,6 +21,7 @@ const Navbar = () => {
 
       <div className="flex items-center space-x-6">
         <Link to="/" className="text-gray-700 hover:text-blue-500">Home</Link>
+
         {user && (
           <Link to="/favorites" className="text-gray-700 hover:text-blue-500">
             Favorites
@@ -38,7 +39,7 @@ const Navbar = () => {
           </>
         ) : (
           <div className="flex items-center space-x-3">
-            <div className="flex items-center space-x-2">
+            <Link to="/profile" className="flex items-center space-x-2">
               <img
                 src={user.photoURL || "https://via.placeholder.com/40"}
                 alt="profile"
@@ -47,7 +48,8 @@ const Navbar = () => {
               <span className="text-gray-700 font-medium">
                 {user.displayName || user.email.split("@")[0]}
               </span>
-            </div>
+            </Link>
+
             <button
               onClick={handleLogout}
               className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition"
