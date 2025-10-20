@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -37,15 +39,23 @@ const SignUp = () => {
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      alert("Sign Up Successful!");
+      toast.success(" Congratulation u create sucessfully "),{
+        duration:3000,
+        style:{
+          background:"blue",
+          color:"green"
+        }
+      };
       navigate("/"); 
     } catch (err) {
       if (err.code === "auth/email-already-in-use") {
         setError("Email already in use. Try signing in.");
       } else if (err.code === "auth/invalid-email") {
         setError("Invalid email address.");
+        toast.error(" sorry u couldnot create the page");
       } else {
         setError(err.message);
+        
       }
     }
   };
@@ -89,10 +99,11 @@ const SignUp = () => {
 
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white p-3 rounded hover:bg-blue-600 transition"
+          className="w-full bg-blue-500 text-white p-3 rounded hover:bg-blue-600 transition hover:cursor-pointer"
         >
           Sign Up
         </button>
+        <Link to="/signin" className="mt-2 mx-auto "> Already have an account ?<span Link to="/signin" className="text-blue-700 font-bold m-1">Sign In </span> </Link>
       </form>
     </div>
   );
