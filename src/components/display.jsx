@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import useRecipeStore from "../store/UseStore";
+import RecipeDetails from "./RecipeviewDetails";
+import { Link } from "react-router-dom";
 
 const Display = () => {
   const { recipes, favorites, toggleFavorite } = useRecipeStore();
@@ -46,6 +48,9 @@ const Display = () => {
                   <p className="text-yellow-500 font-bold mt-1">
                     ⭐ {rating} / 5
                   </p>
+                 <Link to="/recipe-details" state={{ recipe }}>
+  <button className="text-blue-500">View Recipes</button>
+</Link>
                 </div>
               </div>
             );
