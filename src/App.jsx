@@ -9,6 +9,7 @@ import Profile from "./components/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./context/AuthContext";
 import { Toaster } from "react-hot-toast";
+import RecipeDetails from "./components/RecipeviewDetails";
 
 function App() {
   return (
@@ -21,8 +22,10 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/recipe-details" element={<RecipeDetails/>}/>
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signin" element={<SignIn />} />
+            
             <Route
               path="/favorites"
               element={
