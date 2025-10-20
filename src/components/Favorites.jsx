@@ -1,8 +1,9 @@
 import React from "react";
 import useRecipeStore from "../store/UseStore";
+import { useNavigate } from "react-router-dom";
 const Favorites = () => {
   const { favorites, toggleFavorite } = useRecipeStore();
-
+  const navigate=useNavigate();
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4 text-center">❤️ Your Favorites</h2>
@@ -41,14 +42,12 @@ const Favorites = () => {
                   <p className="text-yellow-500 font-bold mt-1">
                     ⭐ {rating} / 5
                   </p>
-                  <a
-                    href={recipe.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
+               <button
+                    onClick={() => navigate("/recipe-details", { state: { recipe } })}
                     className="text-blue-500 hover:underline mt-2 block"
                   >
                     View Recipe →
-                  </a>
+                  </button>
                 </div>
               </div>
             );
