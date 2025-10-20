@@ -8,11 +8,15 @@ import SignIn from "./components/SignIn";
 import Profile from "./components/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./context/AuthContext";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <AuthProvider>
       <Router>
+        <Toaster 
+        position="top-center"
+        reverseOrder={true}/>
         <div className="min-h-screen bg-gray-100">
           <Navbar />
           <Routes>
