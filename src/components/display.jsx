@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import useRecipeStore from "../store/UseStore";
+import useRecipeStore from "../store/usestore";
 import RecipeDetails from "./RecipeviewDetails";
 import { Link } from "react-router-dom";
 

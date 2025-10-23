@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import useRecipeStore from '../store/UseStore';
+import useRecipeStore from "../store/usestore";
 import Display from "./Display";
 
 const Search = () => {
