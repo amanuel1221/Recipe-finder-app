@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import useRecipeStore from '../store/UseStore';
+import useRecipeStore from "../store/usestore";
 import Display from "./Display";
 
 const Search = () => {
@@ -27,7 +27,7 @@ const Search = () => {
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="e.g. pasta, chicken, salad..."
+          placeholder=" e.g. pasta, chicken, salad..."
           className="border rounded-lg p-2 w-64 focus:outline-none focus:ring-2 focus:ring-green-400"
         />
         <button
@@ -37,11 +37,12 @@ const Search = () => {
           Search
         </button>
       </form>
-
       {loading && <p className="text-center mt-4 text-blue-500">Fetching meals...</p>}
-      {error && <p className="text-center mt-4 text-red-500 font-bold">{error}</p>}
 
+      {error && <p className="text-center mt-4 text-red-500 font-bold">{error}</p>}
+<div className="">
       <Display recipes={recipes} />
+      </div>
     </div>
   );
 };
