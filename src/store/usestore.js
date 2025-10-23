@@ -1,4 +1,4 @@
-
+// src/store/UseStore.js
 import { create } from "zustand";
 import { db, auth } from "../firebaseConfig";
 import { doc, getDoc, setDoc } from "firebase/firestore";
@@ -9,6 +9,7 @@ const useRecipeStore = create((set, get) => ({
   loading: false,
   error: null,
 
+  // Fetch recipes from demo Edamam API
   fetchRecipes: async (query) => {
     set({ loading: true, error: null });
     try {
@@ -28,6 +29,7 @@ const useRecipeStore = create((set, get) => ({
     }
   },
 
+  // Load favorites for current user from Firestore
   loadFavorites: async () => {
     const user = auth.currentUser;
     if (!user) {
@@ -44,7 +46,6 @@ const useRecipeStore = create((set, get) => ({
         const data = snap.data();
         set({ favorites: data.favorites || [] });
       } else {
-        
         await setDoc(userRef, { favorites: [] });
         set({ favorites: [] });
       }
@@ -55,11 +56,10 @@ const useRecipeStore = create((set, get) => ({
     }
   },
 
- 
+  // Save favorites to Firestore
   saveFavorites: async (favorites) => {
     const user = auth.currentUser;
     if (!user) return;
-
     try {
       const userRef = doc(db, "users", user.uid);
       await setDoc(userRef, { favorites }, { merge: true });
@@ -68,7 +68,7 @@ const useRecipeStore = create((set, get) => ({
     }
   },
 
-
+  // Toggle a favorite recipe
   toggleFavorite: async (item) => {
     const user = auth.currentUser;
     if (!user) {
@@ -84,10 +84,11 @@ const useRecipeStore = create((set, get) => ({
 
     set({ favorites: updatedFavorites });
 
-   
-    await get().saveFavorites(updatedFavorites);
+    // Save updated favorites in Firestore
+    await get().saveFavorites(updatedFavorites).catch(err => console.error(err));
   },
 
+  // Clear favorites on logout
   clearFavorites: () => set({ favorites: [] }),
 }));
 
