@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebaseConfig";
-import { Menu, X } from "lucide-react"; // hamburger & close icons
+import { Menu, X } from "lucide-react"; 
 
 const Navbar = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [menuOpen, setMenuOpen] = useState(false); // controls mobile menu
+  const [menuOpen, setMenuOpen] = useState(false); 
 
   const handleLogout = async () => {
     await signOut(auth);
@@ -17,44 +17,45 @@ const Navbar = () => {
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
+  const base = "px-3 py-2 rounded-md text-sm font-medium";
+  const active = "text-white bg-blue-600";
+  const inactive = "text-gray-700 hover:text-blue-500";
+
   return (
     <nav className="bg-white shadow-md p-4 flex justify-between items-center relative">
-      {/* 🌟 Logo Section */}
-      <Link to="/" className="flex items-center space-x-2">
-        <img
-          src="/logo.png" // 👈 put your navbar image in /public/logo.png
-          alt="Logo"
-          className="w-10 h-10 rounded-full"
-        />
+      <NavLink to="/" className="flex items-center space-x-2">
         <span className="text-2xl font-bold text-blue-600 hidden sm:inline">
           Recipe Finder 🍳
         </span>
-      </Link>
+      </NavLink>
 
-      {/* 🧭 Desktop Menu */}
       <div className="hidden md:flex items-center space-x-6">
-        <Link to="/" className="text-gray-700 hover:text-blue-500">
+        <NavLink to="/" end className={({ isActive }) => `${base} ${isActive ? active : inactive}`}>
           Home
-        </Link>
+        </NavLink>
 
         {user && (
-          <Link to="/favorites" className="text-gray-700 hover:text-blue-500">
+          <NavLink to="/favorites" className={({ isActive }) => `${base} ${isActive ? active : inactive}`}>
             Favorites
-          </Link>
+          </NavLink>
         )}
+
+        <NavLink to="/about" className={({ isActive }) => `${base} ${isActive ? active : inactive}`}>
+          About
+        </NavLink>
 
         {!user ? (
           <>
-            <Link to="/signin" className="text-gray-700 hover:text-blue-500">
+            <NavLink to="/signin" className={({ isActive }) => `${base} ${isActive ? active : inactive}`}>
               Sign In
-            </Link>
-            <Link to="/signup" className="text-gray-700 hover:text-blue-500">
+            </NavLink>
+            <NavLink to="/signup" className="px-3 py-1 bg-blue-600 text-white rounded text-sm">
               Sign Up
-            </Link>
+            </NavLink>
           </>
         ) : (
           <div className="flex items-center space-x-3">
-            <Link to="/profile" className="flex items-center space-x-2">
+            <NavLink to="/profile" className="flex items-center space-x-2">
               <img
                 src={user.photoURL || "https://via.placeholder.com/40"}
                 alt="profile"
@@ -63,7 +64,7 @@ const Navbar = () => {
               <span className="text-gray-700 font-medium hidden sm:inline">
                 {user.displayName}
               </span>
-            </Link>
+            </NavLink>
             <button
               onClick={handleLogout}
               className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition"
@@ -74,7 +75,7 @@ const Navbar = () => {
         )}
       </div>
 
-      {/* 🍔 Mobile Menu Button */}
+      {/* Mobile Menu Button */}
       <button
         onClick={toggleMenu}
         className="md:hidden text-gray-700 focus:outline-none"
@@ -82,51 +83,35 @@ const Navbar = () => {
         {menuOpen ? <X size={28} /> : <Menu size={28} />}
       </button>
 
-      {/* 📱 Mobile Dropdown Menu */}
+      {/* Mobile Dropdown Menu */}
       {menuOpen && (
         <div className="absolute top-16 left-0 w-full bg-white shadow-md flex flex-col items-center space-y-4 py-4 z-50 md:hidden transition-all duration-300">
-          <Link
-            to="/"
-            className="text-gray-700 hover:text-blue-500"
-            onClick={toggleMenu}
-          >
+          <NavLink to="/" end className="text-gray-700 hover:text-blue-500" onClick={toggleMenu}>
             Home
-          </Link>
+          </NavLink>
 
           {user && (
-            <Link
-              to="/favorites"
-              className="text-gray-700 hover:text-blue-500"
-              onClick={toggleMenu}
-            >
+            <NavLink to="/favorites" className="text-gray-700 hover:text-blue-500" onClick={toggleMenu}>
               Favorites
-            </Link>
+            </NavLink>
           )}
+
+          <NavLink to="/about" className="text-gray-700 hover:text-blue-500" onClick={toggleMenu}>
+            About
+          </NavLink>
 
           {!user ? (
             <>
-              <Link
-                to="/signin"
-                className="text-gray-700 hover:text-blue-500"
-                onClick={toggleMenu}
-              >
+              <NavLink to="/signin" className="text-gray-700 hover:text-blue-500" onClick={toggleMenu}>
                 Sign In
-              </Link>
-              <Link
-                to="/signup"
-                className="text-gray-700 hover:text-blue-500"
-                onClick={toggleMenu}
-              >
+              </NavLink>
+              <NavLink to="/signup" className="text-gray-700 hover:text-blue-500" onClick={toggleMenu}>
                 Sign Up
-              </Link>
+              </NavLink>
             </>
           ) : (
             <>
-              <Link
-                to="/profile"
-                className="flex items-center space-x-2"
-                onClick={toggleMenu}
-              >
+              <NavLink to="/profile" className="flex items-center space-x-2" onClick={toggleMenu}>
                 <img
                   src={user.photoURL || "https://via.placeholder.com/40"}
                   alt="profile"
@@ -135,7 +120,7 @@ const Navbar = () => {
                 <span className="text-gray-700 font-medium">
                   {user.displayName}
                 </span>
-              </Link>
+              </NavLink>
 
               <button
                 onClick={() => {
