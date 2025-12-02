@@ -1,4 +1,3 @@
-
 import { create } from "zustand";
 import { db, auth } from "../firebaseConfig";
 import { doc, getDoc, setDoc } from "firebase/firestore";
@@ -9,26 +8,38 @@ const useRecipeStore = create((set, get) => ({
   loading: false,
   error: null,
 
- 
   fetchRecipes: async (query) => {
     set({ loading: true, error: null });
     try {
       const res = await fetch(
-        `https://api.edamam.com/api/recipes/v2?type=public&q=${query}&app_id=demo&app_key=demo`
+        `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`
       );
+      if (!res.ok) throw new Error(`API returned ${res.status}`);
       const data = await res.json();
-
-      if (data.hits?.length > 0) {
-        const recipes = data.hits.map((hit) => ({ ...hit.recipe, id: hit.recipe.uri }));
+      if (data.meals?.length > 0) {
+        const recipes = data.meals.map((meal) => ({
+          id: meal.idMeal,
+          title: meal.strMeal,
+          image: meal.strMealThumb,
+          instructions: meal.strInstructions,
+          category: meal.strCategory,
+          area: meal.strArea,
+          tags: meal.strTags ? meal.strTags.split(",") : [],
+          ingredients: Array.from({ length: 20 })
+            .map((_, i) => ({
+              ingredient: meal[`strIngredient${i + 1}`],
+              measure: meal[`strMeasure${i + 1}`],
+            }))
+            .filter((ing) => ing.ingredient && ing.ingredient.trim() !== ""),
+        }));
         set({ recipes, loading: false });
       } else {
-        set({ error: "No meals found 😕", loading: false });
+        set({ error: "No meals found 😕", recipes: [], loading: false });
       }
     } catch (err) {
-      set({ error: "Failed to fetch meals", loading: false });
+      set({ error: "Failed to fetch meals", recipes: [], loading: false });
     }
   },
-
 
   loadFavorites: async () => {
     const user = auth.currentUser;
@@ -36,12 +47,10 @@ const useRecipeStore = create((set, get) => ({
       set({ favorites: [] });
       return;
     }
-
     set({ loading: true });
     try {
       const userRef = doc(db, "users", user.uid);
       const snap = await getDoc(userRef);
-
       if (snap.exists()) {
         const data = snap.data();
         set({ favorites: data.favorites || [] });
@@ -56,7 +65,6 @@ const useRecipeStore = create((set, get) => ({
     }
   },
 
-
   saveFavorites: async (favorites) => {
     const user = auth.currentUser;
     if (!user) return;
@@ -68,26 +76,20 @@ const useRecipeStore = create((set, get) => ({
     }
   },
 
- 
   toggleFavorite: async (item) => {
     const user = auth.currentUser;
     if (!user) {
       alert("Please sign in to save favorites!");
       return;
     }
-
     const { favorites } = get();
     const exists = favorites.some((f) => f.id === item.id);
     const updatedFavorites = exists
       ? favorites.filter((f) => f.id !== item.id)
       : [...favorites, item];
-
     set({ favorites: updatedFavorites });
-
-    
-    await get().saveFavorites(updatedFavorites).catch(err => console.error(err));
+    await get().saveFavorites(updatedFavorites).catch((err) => console.error(err));
   },
-
 
   clearFavorites: () => set({ favorites: [] }),
 }));
