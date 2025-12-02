@@ -1,7 +1,5 @@
 # 🍳 Recipe Finder App
 
-A modern, responsive web application to search recipes, view details, and save favorites. Built with React + Vite, Tailwind CSS, Zustand and Firebase.
-
 ## Preview
 - Search recipes and view results in a responsive grid.
 - Detailed recipe pages with ingredients and instructions.
@@ -25,27 +23,6 @@ A modern, responsive web application to search recipes, view details, and save f
 - User profile (display name, avatar)
 - Responsive, mobile-first UI
 
-## Folder structure
-recipe-finder-app/
-- public/
-- src/
-  - components/ (Navbar, Footer, Display, Home, Favorites, Profile, SignIn, SignUp, RecipeDetails)
-  - store/ (useRecipeStore.js)
-  - context/ (AuthContext.js)
-  - App.jsx, main.jsx, index.css
-- package.json
-
-## Installation (Windows)
-1. Clone
-   git clone https://github.com/amanuel1221/Recipe-finder-app.git
-   cd recipe-finder-app
-2. Install
-   npm install
-3. Run dev server
-   npm run dev
-4. Open
-   http://localhost:5173
-
 ## Usage
 - Sign up / sign in with Firebase.
 - Search using the search input.
@@ -58,19 +35,3 @@ recipe-finder-app/
 - Favorites are saved to Firestore under `users/{uid}.favorites`.
 - Zustand store located at src/store/usestore.js.
 
-## Contributing
-- Fork, create a branch, implement changes, open a PR.
-- Keep components small and use Tailwind utility classes.
-
-## Contact / Author
-Amanuel Amare  
-Email: amanuelamare1221@gmail.com  
-GitHub: https://github.com/amanuel1221/Recipe-finder-app.git
-
-Social:
-- Facebook: https://facebook.com/manuell2111
-- Instagram: https://instagram.com/manuell211
-- X: https://x.com/AmanuelAma66386
-
-## License
-MIT — see LICENSE file.
