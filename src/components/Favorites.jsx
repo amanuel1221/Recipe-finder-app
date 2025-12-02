@@ -1,7 +1,25 @@
-import React from "react";
-import useRecipeStore from "../store/UseStore";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import useRecipeStore from "../store/usestore";
+import { useAuth } from "../context/AuthContext";
+
 const Favorites = () => {
-  const { favorites, toggleFavorite } = useRecipeStore();
+  const { user, loading } = useAuth();
+  const { favorites, toggleFavorite, loadFavorites } = useRecipeStore();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      loadFavorites();
+    } else if (!loading) {
+     
+      navigate("/");
+    }
+  }, [user, loading, loadFavorites, navigate]);
+
+  if (loading) {
+    return <p className="text-center mt-20">Loading...</p>;
+  }
 
   return (
     <div className="p-6">
@@ -28,6 +46,8 @@ const Favorites = () => {
                   alt={recipe.label}
                   className="w-full h-48 object-cover"
                 />
+
+               
                 <button
                   onClick={() => toggleFavorite(recipe)}
                   className="absolute top-2 right-2 p-2 rounded-full bg-white shadow-md hover:scale-110 transition"
@@ -41,14 +61,16 @@ const Favorites = () => {
                   <p className="text-yellow-500 font-bold mt-1">
                     ⭐ {rating} / 5
                   </p>
-                  <a
-                    href={recipe.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
+
+                 
+                  <button
+                    onClick={() =>
+                      navigate("/recipe-details", { state: { recipe } })
+                    }
                     className="text-blue-500 hover:underline mt-2 block"
                   >
                     View Recipe →
-                  </a>
+                  </button>
                 </div>
               </div>
             );

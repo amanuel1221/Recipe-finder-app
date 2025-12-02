@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -11,32 +13,31 @@ const SignIn = () => {
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-
-    // Validate email format
-    if (!/\S+@\S+\.\S+/.test(email)) {
-      setError("Please enter a valid email address");
-      return;
-    }
-
-    // Validate password is not empty
-    if (!password) {
-      setError("Please enter your password");
-      return;
-    }
-
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      alert("Sign In Successful!");
-      navigate("/"); // Redirect to home
+      
+      toast.success("welcome back ",{
+        duration:3000,
+        style:{
+          background:"blue",
+          color:"green"
+        }
+      });
+      
+      navigate("/");
     } catch (err) {
-      // Handle Firebase errors with friendly messages
-      if (err.code === "auth/user-not-found" || err.code === "auth/wrong-password") {
-        setError("Email or password is incorrect");
-      } else if (err.code === "auth/invalid-email") {
-        setError("Invalid email address");
-      } else {
-        setError(err.message);
-      }
+      if (err.code === "auth/user-not-found") setError("User not found.");
+      else if (err.code === "auth/wrong-password") setError("Incorrect password.");
+      else setError(err.message);
+      toast.error("Sorry U could not create login in the page ",{
+        duration:3000,
+        style:{
+          background:"pink",
+          color:"red"
+        }
+
+
+      });
     }
   };
 
@@ -56,7 +57,6 @@ const SignIn = () => {
           className="w-full p-3 border border-gray-300 rounded mb-4"
           required
         />
-
         <input
           type="password"
           placeholder="Password"
@@ -70,10 +70,11 @@ const SignIn = () => {
 
         <button
           type="submit"
-          className="w-full bg-green-500 text-white p-3 rounded hover:bg-green-600 transition"
+          className="w-full bg-blue-500 text-white p-3 rounded hover:bg-blue-600 transition"
         >
           Sign In
         </button>
+        <Link to="/signup" className="mt-2 mx-auto">DOn't u have an Account <span className="text-blue-600 font-bold m-1">SIGN UP</span></Link>
       </form>
     </div>
   );

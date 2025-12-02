@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -10,7 +12,6 @@ const SignUp = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  // Validate password rules
   const validatePassword = (pwd) => {
     if (pwd.length < 6) return "Password must be at least 6 characters";
     if (!/[A-Z]/.test(pwd)) return "Password must contain at least 1 uppercase letter";
@@ -19,38 +20,42 @@ const SignUp = () => {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-
-    // Validate email
     if (!/\S+@\S+\.\S+/.test(email)) {
       setError("Please enter a valid email address");
       return;
     }
-
-    // Validate password
     const passwordError = validatePassword(password);
     if (passwordError) {
       setError(passwordError);
       return;
     }
 
-    // Check password confirmation
+
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       return;
     }
 
-    // Try creating the user
+
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      alert("Sign Up Successful!");
-      navigate("/"); // Redirect to home
+      toast.success(" Congratulation u create sucessfully "),{
+        duration:3000,
+        style:{
+          background:"blue",
+          color:"green"
+        }
+      };
+      navigate("/"); 
     } catch (err) {
       if (err.code === "auth/email-already-in-use") {
         setError("Email already in use. Try signing in.");
       } else if (err.code === "auth/invalid-email") {
         setError("Invalid email address.");
+        toast.error(" sorry u couldnot create the page");
       } else {
         setError(err.message);
+        
       }
     }
   };
@@ -94,10 +99,11 @@ const SignUp = () => {
 
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white p-3 rounded hover:bg-blue-600 transition"
+          className="w-full bg-blue-500 text-white p-3 rounded hover:bg-blue-600 transition hover:cursor-pointer"
         >
           Sign Up
         </button>
+        <Link to="/signin" className="mt-2 mx-auto "> Already have an account ?<span Link to="/signin" className="text-blue-700 font-bold m-1">Sign In </span> </Link>
       </form>
     </div>
   );
