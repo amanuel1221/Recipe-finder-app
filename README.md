@@ -12,9 +12,9 @@ Built with React, Tailwind CSS, Zustand, Firebase, and React Router.
 - Save favorites to your account.
 
 
-![Home Page](./preview/home.png)
-![Recipe Details](./preview/details.png)
-![Favorites](./preview/favorites.png)
+![Home Page](./preview/Homepage.png)
+![Recipe Details](./preview/Recipe-Details.png)
+![Favorites](./preview/Favorites.png)
 
 ## 🛠 Tech Stack
 - **Frontend:** React (Vite)
